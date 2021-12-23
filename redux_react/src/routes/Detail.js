@@ -10,14 +10,5 @@ const Detail = ({toDos}) => {
 };
 
 
-function mapStateToProps(state) {
-    return { toDos: state };
-  }
   
-  function mapDispatchToProps(dispatch) {
-    return {
-      addToDo: (text) => dispatch(actionCreators.addToDo(text)),
-    };
-  }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Detail);
+  export default Detail;

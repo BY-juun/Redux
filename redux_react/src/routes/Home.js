@@ -1,10 +1,13 @@
 import React, { useCallback, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import ToDo from "../components/ToDo";
-import { actionCreators } from "../store";
+import { actionCreators, addToDo } from "../store";
 
-const Home = ({ toDos, addToDo }) => {
+const Home = ({ toDos }) => {
   const [text, setText] = useState("");
+  const dispatch = useDispatch();
+  const state = useSelector((state)=>state);
+  console.log(state);
   const onChangeText = useCallback((e) => {
     setText(e.target.value);
   }, []);
@@ -12,7 +15,7 @@ const Home = ({ toDos, addToDo }) => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      addToDo(text);
+      dispatch(addToDo(text));
       setText("");
     },
     [text]
@@ -26,17 +29,14 @@ const Home = ({ toDos, addToDo }) => {
         <button>Submit</button>
       </form>
       <ul>
-        {toDos.map((toDo) => (
-          <ToDo {...toDo}  key = {toDo.id}/>
+        {state.map((toDo) => (
+          <ToDo text = {toDo.text}  key = {toDo.id}/>
         ))}
       </ul>
     </>
   );
 };
 
-function mapStateToProps(state) {
-  return { toDos: state };
-}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -44,4 +44,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(null, mapDispatchToProps)(Home);

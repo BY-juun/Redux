@@ -1,13 +1,13 @@
 import {createStore} from 'redux';
 
-const ADD = "ADD";
+export const ADD = "ADD";
 const DELETE = "DELETE";
 const UDPATE = "UPDATE";
 
-const addToDo = (text) => {
+export const addToDo = (data) => {
     return {
         type : ADD,
-        text,
+        data,
     };
 }
 
@@ -29,7 +29,7 @@ const updateToDo = (id,text)=>{
 const reducer = (state = [], action) => {
     switch(action.type){
         case ADD:
-            return [{text : action.text, id : Date.now()}, ...state];
+            return [{text : action.data, id : Date.now()}, ...state];
         case DELETE:
             return state.filter(toDo => toDo.id !== action.id);
             
